@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Feed;
 use App\Image;
 use App\Services\Uploader;
+use App\Services\ColorsGetter;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 
 class FeedController extends Controller
 {
-    public function __construct(Uploader $uploader)
+    public function __construct(Uploader $uploader, ColorsGetter $colorsGetter)
     {
         $this->uploader = $uploader;
+        $this->colorsGetter = $colorsGetter;
     }
 
     public function index(Guard $auth)
@@ -52,8 +54,10 @@ class FeedController extends Controller
         $feed->update($request->only('name'));
 
         foreach ($request->file('images', []) as $file) {
+            $url = $this->uploader->upload($file);
             $feed->images()->create([
-                'url' => $this->uploader->upload($file),
+                'url' => $url,
+                'color' => $this->colorsGetter->getDominant($url),
             ]);
         }
 

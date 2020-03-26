@@ -10,5 +10,6 @@ class Image extends Model
         'name',
         'url',
         'feed_id',
+        'color',
     ];
 }
