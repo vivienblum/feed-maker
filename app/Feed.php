@@ -15,4 +15,9 @@ class Feed extends Model
     {
         return $this->hasMany(Image::class);
     }
+
+    public function sortedImages()
+    {
+        return $this->images()->orderBy('color', 'DESC');
+    }
 }

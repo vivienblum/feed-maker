@@ -6,3 +6,14 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.feed-image-container > img {
+    width: 25vW;
+    height: 25vw;
+    object-fit: cover;
+
+    @media (max-width: 1024px) {
+        width: 30vw;
+        height: 30vw;
+    }
+}

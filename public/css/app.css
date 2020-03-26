@@ -10882,3 +10882,17 @@ a.text-dark:focus {
   }
 }
 
+.feed-image-container > img {
+  width: 25vW;
+  height: 25vw;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .feed-image-container > img {
+    width: 30vw;
+    height: 30vw;
+  }
+}
+
