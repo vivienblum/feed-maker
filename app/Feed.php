@@ -10,4 +10,9 @@ class Feed extends Model
         'name',
         'user_id',
     ];
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Feed;
+use App\Image;
+use App\Services\Uploader;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 
 class FeedController extends Controller
 {
+    public function __construct(Uploader $uploader)
+    {
+        $this->uploader = $uploader;
+    }
+
     public function index(Guard $auth)
     {
         $feeds = $auth->user()->feeds;
@@ -43,6 +50,12 @@ class FeedController extends Controller
     public function update(Request $request, Feed $feed)
     {
         $feed->update($request->only('name'));
+
+        foreach ($request->file('images', []) as $file) {
+            $feed->images()->create([
+                'url' => $this->uploader->upload($file),
+            ]);
+        }
 
         return view('feeds.show', compact('feed'));
     }
