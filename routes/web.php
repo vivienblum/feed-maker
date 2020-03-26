@@ -17,9 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth'])->group(function () {
+    // Route::get('/feeds', 'FeedController@index');
+    // Route::get('/feeds/create', 'FeedController@create');
+    Route::resource('feeds', 'FeedController');
+});
 
 Auth::routes();
 
