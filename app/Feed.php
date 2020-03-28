@@ -17,23 +17,28 @@ class Feed extends Model
         return $this->hasMany(Image::class);
     }
 
-    public function getSortedImages(): Collection
+    public function getSortedImages(string $sort = 'hue', string $type = 'average'): Collection
     {
-        return $this->getSortedByHue();
-        // return $this->getSortedByHsv();
+        switch ($sort) {
+            case 'hue':
+                return $this->getSortedByHue($type);
+            case 'hsv':
+            default:
+                return $this->getSortedByHsv($type);
+        }
     }
 
-    public function getSortedByHsv(): Collection
+    public function getSortedByHsv(string $type): Collection
     {
-        return $this->images->sort(function (Image $image1, Image $image2) {
-            return $image1->getHsvAll() <=> $image2->getHsvAll();
+        return $this->images->sort(function (Image $image1, Image $image2) use ($type) {
+            return $image1->getHsvAll($type) <=> $image2->getHsvAll($type);
         });
     }
 
-    public function getSortedByHue(): Collection
+    public function getSortedByHue(string $type): Collection
     {
-        return $this->images->sort(function (Image $image1, Image $image2) {
-            return $image1->hue <=> $image2->hue;
+        return $this->images->sort(function (Image $image1, Image $image2) use ($type) {
+            return $image1->getHue($type) <=> $image2->getHue($type);
         });
     }
 }

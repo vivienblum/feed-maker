@@ -41,7 +41,9 @@ class FeedController extends Controller
 
     public function show(Feed $feed)
     {
-        $images = $feed->getSortedImages();
+        $sort = request()->get('sort', 'hsv');
+        $type = request()->get('type', 'average');
+        $images = $feed->getSortedImages($sort, $type);
 
         return view('feeds.show', compact('feed'), compact('images'));
     }

@@ -38,7 +38,7 @@ class Image extends Model
         ]);
     }
 
-    public function getHsvAll(string $type = 'average'): float
+    public function getHsvAll(string $type): float
     {
         return array_sum($this->getHsv($type));
     }
@@ -56,7 +56,7 @@ class Image extends Model
         ]);
     }
 
-    public function getHue(string $type = 'average')
+    public function getHue(string $type)
     {
         $colorsGetter = resolve(ColorsGetter::class);
         $redGetter = "{$type}_red";
