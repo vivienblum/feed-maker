@@ -43,6 +43,19 @@ class Image extends Model
         return array_sum($this->getHsv($type));
     }
 
+    public function getColorHex(string $type): string
+    {
+        $redGetter = "{$type}_red";
+        $greenGetter = "{$type}_green";
+        $blueGetter = "{$type}_blue";
+
+        return ColorsGetter::rgbToHex([
+            $this->{$redGetter},
+            $this->{$greenGetter},
+            $this->{$blueGetter},
+        ]);
+    }
+
     public function getHue(string $type = 'average')
     {
         $colorsGetter = resolve(ColorsGetter::class);

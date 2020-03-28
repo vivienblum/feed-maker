@@ -10882,17 +10882,44 @@ a.text-dark:focus {
   }
 }
 
-.feed-image-container > img {
-  width: 25vW;
+.feed-image-container .feed-image-item {
+  float: left;
   height: 25vw;
   -o-object-fit: cover;
      object-fit: cover;
+  margin: 2px;
+  width: 25vw;
 }
 
 @media (max-width: 1024px) {
-  .feed-image-container > img {
+  .feed-image-container .feed-image-item {
     width: 30vw;
     height: 30vw;
   }
+}
+
+.feed-image-container > *:hover .image-container {
+  display: none;
+}
+
+.feed-image-container > *:hover .colors-container {
+  display: block;
+}
+
+.colors-container {
+  display: none;
+}
+
+.colors-container > * {
+  height: 50%;
+  width: 100%;
+}
+
+.colors-container .dominant-colors {
+  display: flex;
+}
+
+.colors-container .dominant-colors * {
+  width: inherit;
 }
 

@@ -24,6 +24,11 @@ class ColorsGetter
         return optional($colors[0])->rgb;
     }
 
+    public static function rgbToHex($rgb): string
+    {
+        return sprintf("#%02x%02x%02x", $rgb[0], $rgb[1], $rgb[2]);
+    }
+
     public function getAverage(array $colors): array
     {
         $red = 0;

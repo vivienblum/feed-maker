@@ -8,7 +8,22 @@
     </div>
     <div class="feed-image-container">
         @foreach ($images as $image)
-            <img class="feed-image-item" src="{{ $image['url'] }}" loading="lazy"/>
+            <div>
+                <img class="feed-image-item image-container" src="{{ $image['url'] }}" loading="lazy"/>
+                <div class="feed-image-item colors-container">
+                    <div class="average-color" style="background-color: {{ $image->getColorHex('average') }};"></div>
+                    <div class="dominant-colors">
+                        @foreach ($image->colors as $color)
+                            @php($hex = App\Services\ColorsGetter::rgbToHex([
+                                $color['r'],
+                                $color['g'],
+                                $color['b'],
+                            ]))
+                            <div style="background-color: {{ $hex }};"></div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         @endforeach
     </div>
 </div>
