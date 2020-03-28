@@ -41,7 +41,9 @@ class FeedController extends Controller
 
     public function show(Feed $feed)
     {
-        return view('feeds.show', compact('feed'));
+        $images = $feed->getSortedImages();
+
+        return view('feeds.show', compact('feed'), compact('images'));
     }
 
     public function edit(Feed $feed)
@@ -49,19 +51,31 @@ class FeedController extends Controller
         return view('feeds.edit', compact('feed'));
     }
 
-    public function update(Request $request, Feed $feed)
+    public function update(Guard $auth, Request $request, Feed $feed)
     {
         $feed->update($request->only('name'));
 
         foreach ($request->file('images', []) as $file) {
-            $url = $this->uploader->upload($file);
+            $url = $this->uploader->upload($file, $auth->user());
+            $colors = $this->colorsGetter->getDominants($url);
+            $averageColor = $this->colorsGetter->getAverage($colors);
+            $dominantColor = $colors[0];
+            $rgb = $this->colorsGetter->getDominant($url);
             $feed->images()->create([
                 'url' => $url,
-                'color' => $this->colorsGetter->getDominant($url),
+                'dominant_red' => $dominantColor->r,
+                'dominant_green' => $dominantColor->g,
+                'dominant_blue' => $dominantColor->b,
+                'average_red' => $averageColor['red'],
+                'average_green' => $averageColor['green'],
+                'average_blue' => $averageColor['blue'],
+                'colors' => $colors,
             ]);
         }
 
-        return view('feeds.show', compact('feed'));
+        $images = $feed->getSortedImages();
+
+        return view('feeds.show', compact('feed'), compact('images'));
     }
 
     public function destroy(Feed $feed)

@@ -7,8 +7,8 @@
         <a class="btn btn-primary" href="{{ route('feeds.edit', $feed) }}">Edit</a>
     </div>
     <div class="feed-image-container">
-        @foreach ($feed->sortedImages as $image)
-            <img src="{{ $image->url }}" loading="lazy"/>
+        @foreach ($images as $image)
+            <img class="feed-image-item" src="{{ $image['url'] }}" loading="lazy"/>
         @endforeach
     </div>
 </div>
