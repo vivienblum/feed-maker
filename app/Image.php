@@ -38,6 +38,20 @@ class Image extends Model
         ]);
     }
 
+    public function getLuminosity(string $type): float
+    {
+        $colorsGetter = resolve(ColorsGetter::class);
+        $redGetter = "{$type}_red";
+        $greenGetter = "{$type}_green";
+        $blueGetter = "{$type}_blue";
+
+        return sqrt(
+            0.241 * $this->{$redGetter} +
+            0.691 * $this->{$greenGetter} +
+            0.68 * $this->{$blueGetter}
+        );
+    }
+
     public function getHsvAll(string $type): float
     {
         return array_sum($this->getHsv($type));

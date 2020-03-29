@@ -20,6 +20,8 @@ class Feed extends Model
     public function getSortedImages(string $sort = 'hue', string $type = 'average'): Collection
     {
         switch ($sort) {
+            case 'luminosity':
+                return $this->getSortedByLuminosity($type);
             case 'hue':
                 return $this->getSortedByHue($type);
             case 'hsv':
@@ -39,6 +41,13 @@ class Feed extends Model
     {
         return $this->images->sort(function (Image $image1, Image $image2) use ($type) {
             return $image1->getHue($type) <=> $image2->getHue($type);
+        });
+    }
+
+    public function getSortedByLuminosity(string $type): Collection
+    {
+        return $this->images->sortBy(function (Image $image) use ($type) {
+            return $image->getLuminosity($type);
         });
     }
 }
