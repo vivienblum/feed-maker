@@ -11,13 +11,13 @@
             <a class="btn" href="{{ route('feeds.show', [$feed, 'sort' => 'hsv', 'type' => 'average']) }}">HSV -> Average</a>
         </li>
         <li class="list-group-item">
-            <a class="btn" href="{{ route('feeds.show', [$feed, 'sort' => 'hsv', 'type' => 'average']) }}">HSV -> Dominant</a>
+            <a class="btn" href="{{ route('feeds.show', [$feed, 'sort' => 'hsv', 'type' => 'dominant']) }}">HSV -> Dominant</a>
         </li>
         <li class="list-group-item">
-            <a class="btn" href="{{ route('feeds.show', [$feed, 'sort' => 'hsv', 'type' => 'average']) }}">HUE -> Average</a>
+            <a class="btn" href="{{ route('feeds.show', [$feed, 'sort' => 'hue', 'type' => 'average']) }}">HUE -> Average</a>
         </li>
         <li class="list-group-item">
-            <a class="btn" href="{{ route('feeds.show', [$feed, 'sort' => 'hsv', 'type' => 'average']) }}">HUE -> Dominant</a>
+            <a class="btn" href="{{ route('feeds.show', [$feed, 'sort' => 'hue', 'type' => 'dominant']) }}">HUE -> Dominant</a>
         </li>
     </ul>
     <div class="feed-image-container">
